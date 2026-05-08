@@ -1060,6 +1060,13 @@
     align-items: center;
     justify-content: center;
     gap: 28px;
+    backdrop-filter: blur(8px);
+    animation: menuFadeIn 0.25s ease both;
+  }
+
+  @keyframes menuFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   .mobile-menu.open { display: flex; }
@@ -1070,11 +1077,34 @@
     font-weight: 700;
     color: white;
     text-decoration: none;
-    transition: color 0.2s;
+    transition: color 0.2s, transform 0.2s;
+    position: relative;
+    z-index: 1;
   }
 
-  .mobile-menu a:hover { color: var(--orange); }
-  .mobile-close { font-size: 2rem; cursor: pointer; position: absolute; top: 24px; right: 32px; background: none; border: none; color: white; }
+  .mobile-menu a:hover { color: var(--orange); transform: translateX(6px); }
+
+  .mobile-close {
+    font-size: 2rem;
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: background 0.2s;
+    z-index: 2;
+  }
+
+  .mobile-close:hover { background: rgba(255,90,31,0.3); }
 
   /* ── SCROLL REVEAL ── */
   .reveal {
@@ -1101,30 +1131,119 @@
   .form-success-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
   .form-success-sub { font-size: 0.9rem; color: rgba(255,255,255,0.55); }
 
-  /* ── RESPONSIVE ── */
+  /* ── RESPONSIVE: TABLET (≤1100px) ── */
+  @media (max-width: 1100px) {
+    .products-grid { grid-template-columns: repeat(3, 1fr); }
+    .partners-grid { grid-template-columns: repeat(3, 1fr); }
+    .hero-grid { gap: 32px; }
+    .about-grid { gap: 40px; }
+  }
+
+  /* ── RESPONSIVE: TABLET PORTRAIT (≤900px) ── */
   @media (max-width: 900px) {
-    nav { padding: 16px 24px; }
+    nav { padding: 16px 20px; }
     .nav-links { display: none; }
     .nav-cta { display: none; }
     .burger { display: block; }
 
-    section { padding: 70px 24px; }
-    footer { padding: 32px 24px; }
-    #hero { padding: 100px 24px 60px; }
+    section { padding: 64px 20px; }
+    footer { padding: 28px 20px; }
+    #hero { padding: 100px 20px 60px; }
+    #cta { padding: 80px 20px !important; }
 
-    .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
     .hero-visual { display: none; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
-    .cat-grid { grid-template-columns: 1fr; }
-    .adv-grid { grid-template-columns: 1fr; }
-    .partners-grid { grid-template-columns: repeat(3, 1fr); }
-    .products-grid { grid-template-columns: repeat(2, 1fr); }
-    .cases-grid { grid-template-columns: 1fr; }
-    .steps-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    h1.hero-title { font-size: clamp(2rem, 8vw, 3rem); }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .about-numbers { grid-template-columns: 1fr 1fr; }
+
+    .cat-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .cat-card { padding: 28px 20px; }
+
+    .adv-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .adv-card { padding: 24px; gap: 16px; }
+
+    .partners-intro { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .partners-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+
+    .products-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+    .cases-grid { grid-template-columns: 1fr; gap: 16px; }
+
+    .steps-grid { grid-template-columns: repeat(2, 1fr); gap: 36px 24px; }
     .steps-grid::before { display: none; }
-    .contacts-grid { grid-template-columns: 1fr; }
-    .form-grid { grid-template-columns: 1fr; }
+
+    .contacts-grid { grid-template-columns: 1fr; gap: 36px; }
+    .form-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    form { padding: 28px 20px; }
+
+    .footer-left { gap: 6px; }
+    .footer-links { flex-wrap: wrap; gap: 12px; font-size: 0.75rem; }
+  }
+
+  /* ── RESPONSIVE: MOBILE (≤600px) ── */
+  @media (max-width: 600px) {
+    section { padding: 52px 16px; }
+    #hero { padding: 88px 16px 52px; }
+    #cta { padding: 64px 16px !important; }
+    footer { padding: 24px 16px; flex-direction: column; align-items: flex-start; gap: 16px; }
+
+    h1.hero-title { font-size: clamp(1.9rem, 9vw, 2.6rem); letter-spacing: -1px; }
+    .hero-desc { font-size: 0.95rem; }
+    .hero-btns { flex-direction: column; }
+    .btn-primary, .btn-secondary { width: 100%; justify-content: center; text-align: center; }
+    .hero-stats { gap: 18px; }
+    .hero-stat-num { font-size: 1.5rem; }
+
+    .section-title { font-size: clamp(1.5rem, 7vw, 2rem); letter-spacing: -0.5px; }
+
+    .about-numbers { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .about-num { font-size: 1.8rem; }
+    .about-num-card { padding: 18px; }
+    .supply-chain { padding: 14px 12px; }
+    .chain-label { font-size: 0.62rem; }
+
+    .cat-grid { grid-template-columns: 1fr; gap: 12px; }
+    .cat-card { padding: 24px 18px; }
+
+    .adv-grid { grid-template-columns: 1fr; gap: 12px; }
+    .adv-card { padding: 20px 18px; }
+
+    .partners-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .partner-card { padding: 20px 12px; }
+
+    .products-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .product-img { height: 120px; font-size: 3rem; }
+    .product-info { padding: 14px; }
+    .product-name { font-size: 0.8rem; }
+
+    .case-card { padding: 24px 20px; }
+    .case-metric { font-size: 1.5rem; }
+
+    .steps-grid { grid-template-columns: 1fr; gap: 28px; }
+    .step-num { width: 52px; height: 52px; font-size: 1rem; }
+
+    .contacts-grid { gap: 28px; }
+    .form-grid { grid-template-columns: 1fr; gap: 12px; }
+    form { padding: 20px 16px; }
+
+    .cta-title { font-size: clamp(1.6rem, 8vw, 2.4rem); }
+    .cta-sub { font-size: 0.95rem; }
+    .cta-inner .btn-primary { width: 100%; justify-content: center; }
+
     .footer-links { display: none; }
+  }
+
+  /* ── RESPONSIVE: SMALL MOBILE (≤380px) ── */
+  @media (max-width: 380px) {
+    .hero-badge { font-size: 0.7rem; padding: 5px 12px; }
+    h1.hero-title { font-size: 1.75rem; }
+    .products-grid { grid-template-columns: 1fr; }
+    .about-numbers { grid-template-columns: 1fr 1fr; }
+    .partners-grid { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
 </head>
@@ -1146,7 +1265,7 @@
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
+<div class="mobile-menu" id="mobileMenu" onclick="handleMenuClick(event)">
   <button class="mobile-close" onclick="closeMenu()">✕</button>
   <a href="#about" onclick="closeMenu()">О нас</a>
   <a href="#categories" onclick="closeMenu()">Категории</a>
@@ -1701,8 +1820,22 @@
 
 <script>
   // Mobile menu
-  function openMenu() { document.getElementById('mobileMenu').classList.add('open'); }
-  function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); }
+  function openMenu() {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // Close when clicking the backdrop (not the menu items)
+  function handleMenuClick(e) {
+    if (e.target === document.getElementById('mobileMenu')) closeMenu();
+  }
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
 
   // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
@@ -1713,7 +1846,7 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
   reveals.forEach(el => observer.observe(el));
 
   // Form submit
@@ -1739,7 +1872,7 @@
     success.classList.add('show');
   }
 
-  // Smooth nav background
+  // Nav background on scroll
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('navbar');
     if (window.scrollY > 60) {
